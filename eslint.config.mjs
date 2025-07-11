@@ -1,16 +1,28 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+// eslint.config.mjs
+import js from "@eslint/js";
+import eslintPluginNext from "@next/eslint-plugin-next"; // ✅ gunakan default import
+import ts from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+export default [
+  {
+    ignores: ["node_modules/**", ".next/**", "src/generated/**", "prisma/**"], // ✅ ignore yang tepat
+  },
+  js.configs.recommended,
+  {
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: process.cwd(),
+      },
+    },
+    plugins: {
+      "@typescript-eslint": ts,
+    },
+    rules: {
+      // kamu bisa tambahkan rule custom di sini jika mau
+    },
+  },
+  eslintPluginNext, // ✅ tidak destructuring
 ];
-
-export default eslintConfig;
