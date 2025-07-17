@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FaGlobe, FaLinkedin } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { IoStarSharp } from "react-icons/io5";
 
 export default function Footer() {
   return (
@@ -95,7 +96,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="text-gray-500 dark:text-gray-400 hover:text-red-600"
             >
-              <FaGlobe size={20} />
+              <IoStarSharp size={20} />
             </a>
           </div>
         </div>

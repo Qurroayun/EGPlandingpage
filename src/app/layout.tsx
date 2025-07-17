@@ -1,5 +1,4 @@
-import Footer from "@/components/footer/Footer";
-import LandingNavbar from "@/components/navbar/LandingNavbar";
+import LayoutWrapper from "@/components/layout-wrapper";
 import { ThemeProvider } from "@/providers/theme-providers";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -39,9 +38,9 @@ export default function RootLayout({
       >
         <ThemeProvider attribute={"class"} defaultTheme="light" enableSystem>
           <div className="flex flex-col min-h-screen">
-            <LandingNavbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
+            <main className="flex-1">
+              <LayoutWrapper>{children}</LayoutWrapper>
+            </main>
           </div>
         </ThemeProvider>
       </body>
