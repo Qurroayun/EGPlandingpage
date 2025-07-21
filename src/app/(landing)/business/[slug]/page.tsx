@@ -22,6 +22,17 @@ export default async function BusinessItemsPage({
     orderBy: { createdAt: "desc" },
   });
 
+  const formatTanggal = (date: Date | string) => {
+    const tanggal = typeof date === "string" ? new Date(date) : date;
+
+    return tanggal.toLocaleDateString("id-ID", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-2xl font-bold mb-4">{category.name}</h1>
@@ -45,6 +56,10 @@ export default async function BusinessItemsPage({
               <h2 className="text-lg font-semibold">{item.name}</h2>
               <p className="text-sm text-gray-500 line-clamp-2">
                 {item.description}
+              </p>
+              <p className="text-xs text-gray-500 mt-3">
+                {" "}
+                {formatTanggal(item.createdAt)}
               </p>
             </Link>
           ))}

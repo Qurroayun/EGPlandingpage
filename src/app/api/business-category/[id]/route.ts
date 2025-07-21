@@ -1,4 +1,3 @@
-// src/app/api/business-category/[id]/route.ts
 import { prisma } from "@/lib/prisma";
 import { slugify } from "@/utils/slugify";
 import { NextResponse } from "next/server";
@@ -7,7 +6,7 @@ export async function PUT(
   req: Request,
   context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await context.params; // ✅ harus di-await
+  const { id } = await context.params;
 
   const body = await req.json();
   const { name } = body;
@@ -30,7 +29,7 @@ export async function DELETE(
   req: Request,
   context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await context.params; // ✅ juga di-await
+  const { id } = await context.params;
 
   await prisma.businessCategory.delete({
     where: { id },

@@ -2,7 +2,6 @@ import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-// ❗ Next.js 15: gunakan `params` sebagai Promise dan await di dalamnya
 export default async function BusinessItemDetailPage({
   params,
 }: {

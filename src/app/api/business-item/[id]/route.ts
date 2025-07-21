@@ -1,14 +1,12 @@
-// src/app/api/business-item/[id]/route.ts
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-// ✅ GUNAKAN Promise DI PARAM TYPE
 export async function PUT(
   req: Request,
   context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await context.params; // ✅ harus pakai await
+    const { id } = await context.params;
     const { name, description, image, categoryId } = await req.json();
 
     const updated = await prisma.business.update({

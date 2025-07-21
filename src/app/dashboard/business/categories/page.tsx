@@ -45,7 +45,6 @@ export default function CategoryPage() {
   const [loading, setLoading] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  // Edit states
   const [editOpen, setEditOpen] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
   const [editName, setEditName] = useState("");
@@ -103,7 +102,7 @@ export default function CategoryPage() {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto py-10 px-4 space-y-6">
+    <div className="mx-auto py-10 px-4 space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-semibold">Business Categories</h2>
 
@@ -142,113 +141,115 @@ export default function CategoryPage() {
       </div>
 
       {/* Table */}
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Slug</TableHead>
-            <TableHead>Created At</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {categories.map((cat) => (
-            <TableRow key={cat.id}>
-              <TableCell>{cat.name}</TableCell>
-              <TableCell>{cat.slug}</TableCell>
-              <TableCell>
-                {format(new Date(cat.createdAt), "dd MMM yyyy")}
-              </TableCell>
-              <TableCell className="text-right flex gap-2 justify-end">
-                {/* Edit Button */}
-                <Dialog
-                  open={editOpen && editId === cat.id}
-                  onOpenChange={(open) => {
-                    if (open) {
-                      setEditOpen(true);
-                      setEditId(cat.id);
-                      setEditName(cat.name);
-                    } else {
-                      setEditOpen(false);
-                      setEditId(null);
-                      setEditName("");
-                    }
-                  }}
-                >
-                  <DialogTrigger asChild>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => {
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Slug</TableHead>
+              <TableHead>Created At</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {categories.map((cat) => (
+              <TableRow key={cat.id}>
+                <TableCell>{cat.name}</TableCell>
+                <TableCell>{cat.slug}</TableCell>
+                <TableCell>
+                  {format(new Date(cat.createdAt), "dd MMM yyyy")}
+                </TableCell>
+                <TableCell className="text-right flex gap-2 justify-end">
+                  {/* Edit Button */}
+                  <Dialog
+                    open={editOpen && editId === cat.id}
+                    onOpenChange={(open) => {
+                      if (open) {
+                        setEditOpen(true);
                         setEditId(cat.id);
                         setEditName(cat.name);
-                        setEditOpen(true);
-                      }}
-                    >
-                      <Pencil className="w-4 h-4" />
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-md">
-                    <DialogHeader>
-                      <DialogTitle>Edit Category</DialogTitle>
-                    </DialogHeader>
-                    <div className="space-y-4">
-                      <Input
-                        placeholder="New name"
-                        value={editName}
-                        onChange={(e) => setEditName(e.target.value)}
-                      />
-                      <div className="flex justify-end gap-2">
-                        <Button
-                          variant="outline"
-                          onClick={() => {
-                            setEditOpen(false);
-                            setEditId(null);
-                            setEditName("");
-                          }}
-                        >
-                          Cancel
-                        </Button>
-                        <Button onClick={handleUpdate} disabled={loading}>
-                          Update
-                        </Button>
+                      } else {
+                        setEditOpen(false);
+                        setEditId(null);
+                        setEditName("");
+                      }
+                    }}
+                  >
+                    <DialogTrigger asChild>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          setEditId(cat.id);
+                          setEditName(cat.name);
+                          setEditOpen(true);
+                        }}
+                      >
+                        <Pencil className="w-4 h-4" />
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md">
+                      <DialogHeader>
+                        <DialogTitle>Edit Category</DialogTitle>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        <Input
+                          placeholder="New name"
+                          value={editName}
+                          onChange={(e) => setEditName(e.target.value)}
+                        />
+                        <div className="flex justify-end gap-2">
+                          <Button
+                            variant="outline"
+                            onClick={() => {
+                              setEditOpen(false);
+                              setEditId(null);
+                              setEditName("");
+                            }}
+                          >
+                            Cancel
+                          </Button>
+                          <Button onClick={handleUpdate} disabled={loading}>
+                            Update
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                  </DialogContent>
-                </Dialog>
+                    </DialogContent>
+                  </Dialog>
 
-                {/* Delete Button */}
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      onClick={() => setDeleteId(cat.id)}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>
-                        Are you sure you want to delete?
-                      </AlertDialogTitle>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel onClick={() => setDeleteId(null)}>
-                        Cancel
-                      </AlertDialogCancel>
-                      <AlertDialogAction onClick={confirmDelete}>
-                        Yes, Delete
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+                  {/* Delete Button */}
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => setDeleteId(cat.id)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>
+                          Are you sure you want to delete?
+                        </AlertDialogTitle>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel onClick={() => setDeleteId(null)}>
+                          Cancel
+                        </AlertDialogCancel>
+                        <AlertDialogAction onClick={confirmDelete}>
+                          Yes, Delete
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

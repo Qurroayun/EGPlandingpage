@@ -11,7 +11,6 @@ export async function POST() {
     }
   );
 
-  // Hapus cookie dengan cara set maxAge ke 0
   response.cookies.set("token", "", {
     httpOnly: true,
     path: "/",

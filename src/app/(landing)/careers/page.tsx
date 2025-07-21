@@ -27,7 +27,6 @@ export default function CareerPage() {
 
   const MotionDiv = motion.div;
 
-  // CTA Section Ref
   const ctaRef = useRef(null);
   const ctaInView = useInView(ctaRef, { once: true, amount: 0.3 });
 

@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { signIn } from "next-auth/react"; // 🧠 PENTING
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -39,35 +40,22 @@ export default function LoginPage() {
   const handleLogin = async () => {
     if (!validateForm()) return;
 
-    try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        body: JSON.stringify(form),
-        headers: { "Content-Type": "application/json" },
-        credentials: "include", // wajib untuk cookie!
-      });
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: form.email,
+      password: form.password,
+    });
 
-      const data = await res.json();
-
-      if (res.ok) {
-        // ⏳ Tunggu 100ms agar cookie benar-benar tersimpan sebelum redirect
-        setTimeout(() => {
-          // router.push("/dashboard");
-          router.push("/dashboard");
-          router.refresh();
-        }, 100);
+    if (res?.ok) {
+      router.push("/dashboard");
+      router.refresh();
+    } else {
+      // tangkap error umum dari credentials provider
+      if (res?.error?.toLowerCase().includes("credentials")) {
+        setServerError("Email atau password salah.");
       } else {
-        if (data.message?.toLowerCase().includes("email")) {
-          setEmailError(data.message);
-        } else if (data.message?.toLowerCase().includes("password")) {
-          setPasswordError(data.message);
-        } else {
-          setServerError(data.message || "Login gagal.");
-        }
+        setServerError("Terjadi kesalahan saat login.");
       }
-    } catch (error) {
-      setServerError("Terjadi kesalahan saat login.");
-      console.error("Login error:", error);
     }
   };
 

@@ -1,31 +1,18 @@
-// src/app/dashboard/layout.tsx
-export const dynamic = "force-dynamic";
+// components/layout/DashboardShell.tsx
+"use client";
 
 import DashboardHeader from "@/components/header/DashboardHeader";
 import Sidebar from "@/components/sidebar/Sidebar";
 import { SidebarProvider } from "@/context/SidebarContext";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
 import { ReactNode } from "react";
 
-interface Props {
+export default function DashboardShell({
+  children,
+  name,
+}: {
   children: ReactNode;
-}
-
-export default async function DashboardLayout({ children }: Props) {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    // Redirect kalau tidak login
-    return (
-      <div className="flex justify-center items-center h-screen text-xl">
-        Unauthorized. Please login.
-      </div>
-    );
-  }
-
-  const name = session.user?.name ?? "User";
-
+  name: string;
+}) {
   return (
     <SidebarProvider>
       <div className="flex min-h-screen">

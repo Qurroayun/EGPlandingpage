@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { slugify } from "@/utils/slugify"; // buat helper untuk slug
+import { slugify } from "@/utils/slugify";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {

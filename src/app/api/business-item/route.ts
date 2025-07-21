@@ -1,4 +1,3 @@
-// ✅ src/app/api/business-item/route.ts
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -24,7 +23,7 @@ export async function POST(request: Request) {
       name,
       description,
       categoryId,
-      image: image || "https://via.placeholder.com/300", // ✅ Dummy image fallback
+      image: image || "https://via.placeholder.com/300",
     },
   });
 

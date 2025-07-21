@@ -167,7 +167,7 @@ export default function BusinessItemPage() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto py-10 px-4 space-y-6">
+    <div className="mx-auto py-10 px-4 space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-semibold">Business Items</h2>
         <Dialog open={open} onOpenChange={setOpen}>
@@ -270,76 +270,78 @@ export default function BusinessItemPage() {
         </Dialog>
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Image</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead>Created At</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {items.map((item) => (
-            <TableRow key={item.id}>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>
-                {item.image ? (
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-16 h-16 object-cover rounded"
-                  />
-                ) : (
-                  <span className="text-sm text-muted-foreground italic">
-                    No image
-                  </span>
-                )}
-              </TableCell>
-              <TableCell>{item.category.name}</TableCell>
-              <TableCell className="max-w-xs truncate">
-                {item.description}
-              </TableCell>
-              <TableCell>
-                {format(new Date(item.createdAt), "dd MMM yyyy")}
-              </TableCell>
-              <TableCell className="text-right space-x-2">
-                <Button size="sm" onClick={() => handleEdit(item)}>
-                  <Pencil size={16} />
-                </Button>
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      onClick={() => setDeleteId(item.id)}
-                    >
-                      <Trash2 size={16} />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>
-                        Are you sure to delete?
-                      </AlertDialogTitle>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel onClick={() => setDeleteId(null)}>
-                        Cancel
-                      </AlertDialogCancel>
-                      <AlertDialogAction onClick={confirmDelete}>
-                        Yes, Delete
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </TableCell>
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Image</TableHead>
+              <TableHead>Category</TableHead>
+              <TableHead>Description</TableHead>
+              <TableHead>Created At</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {items.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell>{item.name}</TableCell>
+                <TableCell>
+                  {item.image ? (
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-16 h-16 object-cover rounded"
+                    />
+                  ) : (
+                    <span className="text-sm text-muted-foreground italic">
+                      No image
+                    </span>
+                  )}
+                </TableCell>
+                <TableCell>{item.category.name}</TableCell>
+                <TableCell className="max-w-xs truncate">
+                  {item.description}
+                </TableCell>
+                <TableCell>
+                  {format(new Date(item.createdAt), "dd MMM yyyy")}
+                </TableCell>
+                <TableCell className="text-right space-x-2">
+                  <Button size="sm" onClick={() => handleEdit(item)}>
+                    <Pencil size={16} />
+                  </Button>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => setDeleteId(item.id)}
+                      >
+                        <Trash2 size={16} />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>
+                          Are you sure to delete?
+                        </AlertDialogTitle>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel onClick={() => setDeleteId(null)}>
+                          Cancel
+                        </AlertDialogCancel>
+                        <AlertDialogAction onClick={confirmDelete}>
+                          Yes, Delete
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }
