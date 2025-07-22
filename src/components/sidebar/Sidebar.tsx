@@ -20,6 +20,7 @@ import {
   Sun,
   Users,
 } from "lucide-react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -46,8 +47,9 @@ export default function Sidebar() {
   };
 
   const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/auth/login");
+    await signOut({
+      callbackUrl: "/auth/login",
+    });
   };
 
   return (

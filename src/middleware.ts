@@ -29,7 +29,9 @@ export async function middleware(req: NextRequest) {
     if (role === "SuperAdmin") {
       return NextResponse.next();
     }
-
+    if (pathname.startsWith("/auth/register")) {
+      if (role === "SuperAdmin") return NextResponse.next();
+    }
     // Finance hanya bisa ke /dashboard/finance
     if (role === "Finance" && pathname.startsWith("/dashboard/finance")) {
       return NextResponse.next();
@@ -43,5 +45,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ["/dashboard/:path*", "/auth/register"],
 };
