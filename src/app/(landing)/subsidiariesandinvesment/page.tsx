@@ -13,7 +13,7 @@ export default function BusinessCategoryPage() {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const res = await fetch("/api/business-category");
+      const res = await fetch("/api/subsidiariesandinvesment-category");
       const data = await res.json();
       setCategories(data);
     };
@@ -28,7 +28,7 @@ export default function BusinessCategoryPage() {
         {categories.map((cat) => (
           <Link
             key={cat.id}
-            href={`/business/${cat.id}`}
+            href={`/subsidiariesandinvesment/${cat.id}`}
             className="border rounded-xl p-4 hover:shadow-lg transition"
           >
             <h2 className="text-xl font-semibold">{cat.name}</h2>

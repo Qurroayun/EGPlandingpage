@@ -51,7 +51,7 @@ export default function CategoryPage() {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch("/api/business-category");
+      const res = await fetch("/api/subsidiariesandinvesment-category");
       const data = await res.json();
       setCategories(data);
     } catch (error) {
@@ -62,7 +62,7 @@ export default function CategoryPage() {
   const handleCreate = async () => {
     if (!name) return;
     setLoading(true);
-    await fetch("/api/business-category", {
+    await fetch("/api/subsidiariesandinvesment-category", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name }),
@@ -76,7 +76,7 @@ export default function CategoryPage() {
   const handleUpdate = async () => {
     if (!editId || !editName) return;
     setLoading(true);
-    await fetch(`/api/business-category/${editId}`, {
+    await fetch(`/api/subsidiariesandinvesment-category/${editId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: editName }),
@@ -90,7 +90,7 @@ export default function CategoryPage() {
 
   const confirmDelete = async () => {
     if (!deleteId) return;
-    await fetch(`/api/business-category/${deleteId}`, {
+    await fetch(`/api/subsidiariesandinvesment-category/${deleteId}`, {
       method: "DELETE",
     });
     setDeleteId(null);

@@ -54,7 +54,7 @@ export default function LandingNavbar() {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const res = await fetch("/api/business-category");
+        const res = await fetch("/api/subsidiariesandinvesment-category");
         const data = await res.json();
         setCategories(data);
       } catch (error) {
@@ -95,7 +95,7 @@ export default function LandingNavbar() {
 
           <DropdownMenu>
             <DropdownMenuTrigger className="text-sm font-medium flex items-center gap-1 transition-all duration-700 hover:text-primary hover:scale-[1.2] focus:outline-none">
-              Our Business
+              Our Subsidiaries & Invesment
               <ChevronDown size={14} />
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -108,7 +108,7 @@ export default function LandingNavbar() {
                 categories.map((cat) => (
                   <DropdownMenuItem asChild key={cat.slug}>
                     <Link
-                      href={`/business/${cat.slug}`}
+                      href={`/subsidiariesandinvesment/${cat.slug}`}
                       className="transition-all duration-300 hover:text-primary"
                     >
                       {cat.name}
@@ -178,7 +178,7 @@ export default function LandingNavbar() {
             onClick={() => setShowMobileService(!showMobileService)}
             className="w-full text-left text-sm font-medium flex items-center transition-all duration-300 hover:text-primary hover:underline hover:scale-[1.02]"
           >
-            Our Business{" "}
+            Our Subsidiaries & Invesment{" "}
             <ChevronDown
               className={`w-4 h-4 transition-transform ml-2 ${
                 showMobileService ? "rotate-180" : ""
@@ -194,7 +194,7 @@ export default function LandingNavbar() {
                 categories.map((cat) => (
                   <Link
                     key={cat.slug}
-                    href={`/business/${cat.slug}`}
+                    href={`/subsidiariesandinvesment/${cat.slug}`}
                     className="px-3 py-1 text-sm font-medium border rounded-lg transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-md hover:scale-[1.03]"
                     onClick={() => setIsOpen(false)}
                   >

@@ -19,7 +19,7 @@ export default async function BusinessItemDetail({
 
   return (
     <div className="container mx-auto py-8 px-4">
-      <Link href={`/business/${slug}`}>
+      <Link href={`/subsidiariesandinvesment/${slug}`}>
         <Button
           variant="outline"
           className="transition-all duration-300 hover:scale-[1.03] 

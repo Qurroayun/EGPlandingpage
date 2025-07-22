@@ -43,7 +43,7 @@ export default async function BusinessItemsPage({
           {items.map((item) => (
             <Link
               key={item.id}
-              href={`/business/${slug}/${item.id}`}
+              href={`/subsidiariesandinvesment/${slug}/${item.id}`}
               className="border rounded-lg p-4 hover:shadow-lg transition"
             >
               <Image

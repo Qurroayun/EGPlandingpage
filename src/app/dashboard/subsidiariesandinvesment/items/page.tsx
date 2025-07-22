@@ -74,7 +74,7 @@ export default function BusinessItemPage() {
   }>({});
 
   const fetchItems = async () => {
-    const res = await fetch("/api/business-item");
+    const res = await fetch("/api/subsidiariesandinvesment-item");
     if (res.ok) {
       const data = await res.json();
       setItems(data);
@@ -82,7 +82,7 @@ export default function BusinessItemPage() {
   };
 
   const fetchCategories = async () => {
-    const res = await fetch("/api/business-category");
+    const res = await fetch("/api/subsidiariesandinvesment-category");
     const data = await res.json();
     setCategories(data);
   };
@@ -129,13 +129,13 @@ export default function BusinessItemPage() {
     };
 
     if (isEdit && editingItem) {
-      await fetch(`/api/business-item/${editingItem.id}`, {
+      await fetch(`/api/subsidiariesandinvesment-item/${editingItem.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
     } else {
-      await fetch("/api/business-item", {
+      await fetch("/api/subsidiariesandinvesment-item", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
