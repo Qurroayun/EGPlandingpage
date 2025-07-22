@@ -83,7 +83,7 @@ export default function RegisterPage() {
 
         <p className="text-sm mt-4 text-center">
           Sudah Memiliki Akun ?{" "}
-          <Link href="/auth/register" className="underline text-blue-600">
+          <Link href="/auth/login" className="underline text-blue-600">
             Login sekarang
           </Link>
         </p>
