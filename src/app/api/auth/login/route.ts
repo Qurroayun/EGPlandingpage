@@ -27,6 +27,7 @@ export async function POST(req: Request) {
     const token = sign(
       {
         id: user.id,
+        name: user.name,
         role: user.role,
         email: user.email,
       },
@@ -34,7 +35,6 @@ export async function POST(req: Request) {
       { expiresIn: "30m" }
     );
 
-    // Gunakan NextResponse biasa agar bisa set cookie
     const response = new NextResponse(
       JSON.stringify({
         message: "Login success",
@@ -54,7 +54,6 @@ export async function POST(req: Request) {
       }
     );
 
-    // Set cookie JWT
     response.cookies.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

@@ -1,31 +1,47 @@
-import { jwtVerify } from "jose";
+import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function middleware(request: NextRequest) {
-  console.log("🔥 MIDDLEWARE EXECUTED:", request.nextUrl.pathname);
+const PUBLIC_FILE = /\.(.*)$/;
 
-  const token = request.cookies.get("token")?.value;
-  const { pathname } = request.nextUrl;
+export async function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
 
+  // Bypass public routes
+  if (
+    pathname === "/" ||
+    pathname.startsWith("/auth/login") ||
+    PUBLIC_FILE.test(pathname)
+  ) {
+    return NextResponse.next();
+  }
+
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+  // Jika belum login
+  if (!token) {
+    return NextResponse.redirect(new URL("/auth/login", req.url));
+  }
+
+  const role = token.role as string;
+
+  // Hanya izinkan SuperAdmin masuk dashboard
   if (pathname.startsWith("/dashboard")) {
-    if (!token) {
-      return NextResponse.redirect(new URL("/auth/login", request.url));
+    if (role === "SuperAdmin") {
+      return NextResponse.next();
     }
 
-    console.log("TOKEN ADA:", !!token);
-
-    try {
-      const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-      await jwtVerify(token, secret);
-    } catch (err) {
-      console.warn("❌ TOKEN INVALID:", err);
-      return NextResponse.redirect(new URL("/auth/login", request.url));
+    // Finance hanya bisa ke /dashboard/finance
+    if (role === "Finance" && pathname.startsWith("/dashboard/finance")) {
+      return NextResponse.next();
     }
+
+    // Role lain ditolak
+    return NextResponse.redirect(new URL("/", req.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/dashboard"],
+  matcher: ["/dashboard/:path*"],
 };

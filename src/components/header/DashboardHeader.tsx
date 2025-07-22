@@ -4,7 +4,7 @@ import { Bell } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function DashboardHeader() {
+export default function DashboardHeader({ name }: { name: string }) {
   return (
     <header className="flex sticky top-0 z-50 items-center justify-between px-4 md:px-6 py-4 border-b bg-white dark:bg-black">
       {/* Sidebar Toggle + User Info (Left) */}
@@ -18,7 +18,7 @@ export default function DashboardHeader() {
             className="rounded-full border border-gray-300 dark:border-gray-600"
           />
           <span className="text-sm md:text-base font-medium text-gray-700 dark:text-white">
-            Hi, Admin
+            Hi, {name}
           </span>
         </Link>
       </div>

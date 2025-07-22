@@ -12,6 +12,7 @@ import {
   FileText,
   Folder,
   LayoutDashboard,
+  Lock,
   LogOut,
   Moon,
   PencilRuler,
@@ -27,7 +28,8 @@ import { Separator } from "../ui/separator";
 export default function Sidebar() {
   const { isOpen, toggle } = useSidebar();
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [businessOpen, setBusinessOpen] = useState(false); // ⬅️ kontrol submenu
+  const [businessOpen, setBusinessOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -79,7 +81,7 @@ export default function Sidebar() {
             label="Projects"
           />
 
-          {/* Business with Submenu */}
+          {/* Business Menu */}
           <div>
             <button
               onClick={() => setBusinessOpen(!businessOpen)}
@@ -90,7 +92,7 @@ export default function Sidebar() {
               </span>
               {isOpen && (
                 <span className="text-sm font-medium flex-1 text-left">
-                  Business
+                  Subsidiaries & Investment
                 </span>
               )}
               {isOpen && (
@@ -104,17 +106,16 @@ export default function Sidebar() {
               )}
             </button>
 
-            {/* Submenu */}
             {businessOpen && isOpen && (
               <div className="ml-8 mt-1 space-y-1">
                 <SidebarItem
-                  href="/dashboard/business/categories"
+                  href="/dashboard/subsidiariesandinvesment/categories"
                   icon={<Folder className="w-4 h-4" />}
                   label="Category"
                   small
                 />
                 <SidebarItem
-                  href="/dashboard/business/items"
+                  href="/dashboard/subsidiariesandinvesment/items"
                   icon={<FileText className="w-4 h-4" />}
                   label="Items"
                   small
@@ -123,17 +124,55 @@ export default function Sidebar() {
             )}
           </div>
 
+          {/* Contact */}
           <SidebarItem
             href="/dashboard/contact"
             icon={<Contact />}
             label="Contact"
           />
-          <SidebarItem href="/dashboard/users" icon={<Users />} label="Users" />
-          <SidebarItem
-            href="/dashboard/settings"
-            icon={<Settings />}
-            label="Settings"
-          />
+
+          {/* Settings Menu with Submenu */}
+          <div>
+            <button
+              onClick={() => setSettingsOpen(!settingsOpen)}
+              className="flex items-center gap-3 p-2 w-full rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
+            >
+              <span className="text-lg">
+                <Settings />
+              </span>
+              {isOpen && (
+                <span className="text-sm font-medium flex-1 text-left">
+                  Settings
+                </span>
+              )}
+              {isOpen && (
+                <span className="text-lg ">
+                  {settingsOpen ? (
+                    <ChevronUp size={18} />
+                  ) : (
+                    <ChevronDown size={18} />
+                  )}
+                </span>
+              )}
+            </button>
+
+            {settingsOpen && isOpen && (
+              <div className="ml-8 mt-1 space-y-1">
+                <SidebarItem
+                  href="/dashboard/profile"
+                  icon={<Users className="w-4 h-4" />}
+                  label="Profile"
+                  small
+                />
+                <SidebarItem
+                  href="/dashboard/security"
+                  icon={<Lock className="w-4 h-4" />}
+                  label="Security"
+                  small
+                />
+              </div>
+            )}
+          </div>
         </nav>
       </div>
 

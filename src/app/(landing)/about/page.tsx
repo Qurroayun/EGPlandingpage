@@ -1,5 +1,4 @@
 "use client";
-
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { FaHandshake, FaLightbulb, FaRocket } from "react-icons/fa";
@@ -32,10 +31,7 @@ export default function AboutPage() {
           <p className="text-xl max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
             Kami adalah kumpulan kreator, inovator, dan pemimpi yang percaya
             bahwa teknologi bisa menyentuh hati manusia dan menciptakan dampak
-            nyata. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex,
-            tenetur asperiores non perspiciatis error ipsam, dolore dicta, natus
-            voluptatem ab odit exercitationem voluptas porro repellat quam
-            similique eum ea expedita.
+            nyata.
           </p>
         </motion.div>
       </section>
