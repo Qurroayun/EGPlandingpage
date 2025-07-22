@@ -161,7 +161,9 @@ export default function BusinessItemPage() {
 
   const confirmDelete = async () => {
     if (!deleteId) return;
-    await fetch(`/api/business-item/${deleteId}`, { method: "DELETE" });
+    await fetch(`/api/subsidiariesandinvesment-item/${deleteId}`, {
+      method: "DELETE",
+    });
     setDeleteId(null);
     fetchItems();
   };
