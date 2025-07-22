@@ -5,8 +5,12 @@ import { FaBriefcase, FaProjectDiagram, FaTags } from "react-icons/fa";
 
 export default function DashboardPage() {
   const [dateTime, setDateTime] = useState("");
-  const [stats, setStats] = useState({
-    business: 0,
+  const [stats, setStats] = useState<{
+    subsidiariesandinvesment: number;
+    category: number;
+    project: number;
+  }>({
+    subsidiariesandinvesment: 0,
     category: 0,
     project: 0,
   });
@@ -35,9 +39,17 @@ export default function DashboardPage() {
   // Ambil data dari API
   useEffect(() => {
     async function fetchStats() {
-      const res = await fetch("");
-      const data = await res.json();
-      setStats(data);
+      try {
+        const res = await fetch("/api/stats");
+        const data = await res.json();
+        setStats({
+          subsidiariesandinvesment: data.subsidiariesandinvesment ?? 0,
+          category: data.category ?? 0,
+          project: data.project ?? 0,
+        });
+      } catch (error) {
+        console.error("Failed to fetch stats", error);
+      }
     }
     fetchStats();
   }, []);
@@ -51,8 +63,8 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <Card
-          title="Our Business"
-          value={stats.business.toString()}
+          title="Subsidiaries & Investment"
+          value={stats.subsidiariesandinvesment.toString()}
           icon={<FaBriefcase className="w-8 h-8 text-primary" />}
         />
         <Card
