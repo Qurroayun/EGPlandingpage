@@ -2,109 +2,99 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FaLinkedin } from "react-icons/fa";
+import { FaEnvelope, FaFacebookF, FaLinkedin } from "react-icons/fa";
 import { IoStarSharp } from "react-icons/io5";
 
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-700 py-10 mt-12">
-      <div className="container mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <footer className="bg-blue-900  text-white py-12 mt-16">
+      <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-10">
         {/* Logo & Description */}
-        <div className="flex flex-col items-start space-y-3">
-          <div className="flex items-center gap-2">
+        <div>
+          <div className="flex items-center gap-3 mb-4">
             <Image
               src="/images/logoevindo.png"
               alt="Logo"
               width={40}
               height={40}
             />
-            <span className="text-base font-semibold text-gray-800 dark:text-gray-200">
-              Evindo Global Putra
-            </span>
+            <span className="text-lg font-semibold">Evindo Global Putra</span>
           </div>
-
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            <strong>Jakarta Office:</strong>
-            <br />
-            Jl. Pantai Indah Kapuk, Jl. Marina Raya Ruko Cordoba No.38 Blok H,{" "}
-            <br />
-            RT.6/RW.2, Kamal Muara, Penjaringan, Jakarta Utara 14470
+          <p className="text-sm text-white/90 leading-relaxed mb-6">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae
+            adipisci assumenda labore ratione atque asperiores, odit est
+            molestias.
           </p>
-        </div>
 
-        {/* Services */}
-        <div className="flex flex-col items-start space-y-2">
-          <h4 className="font-semibold text-gray-800 dark:text-gray-200">
-            Services
-          </h4>
-          <Link
-            href="/services/constructions"
-            className="text-sm text-gray-500 dark:text-gray-400 hover:underline"
-          >
-            Construction
-          </Link>
-          <Link
-            href="/services/restaurants"
-            className="text-sm text-gray-500 dark:text-gray-400 hover:underline"
-          >
-            Restaurant
-          </Link>
-          <Link
-            href="/services/consulting"
-            className="text-sm text-gray-500 dark:text-gray-400 hover:underline"
-          >
-            Consulting
-          </Link>
-        </div>
-
-        {/* Legal */}
-        <div className="flex flex-col items-start space-y-2">
-          <h4 className="font-semibold text-gray-800 dark:text-gray-200">
-            Legal
-          </h4>
-          <Link
-            href="/privacy"
-            className="text-sm text-gray-500 dark:text-gray-400 hover:underline"
-          >
-            Privacy Policy
-          </Link>
-          <Link
-            href="/terms"
-            className="text-sm text-gray-500 dark:text-gray-400 hover:underline"
-          >
-            Terms of Service
-          </Link>
-        </div>
-
-        {/* Follow Us */}
-        <div className="flex flex-col items-start space-y-3">
-          <h4 className="font-semibold text-gray-800 dark:text-gray-200">
-            Follow Us
-          </h4>
-          <div className="flex space-x-3">
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-500 dark:text-gray-400 hover:text-blue-600"
-            >
-              <FaLinkedin size={20} />
-            </a>
-            <a
-              href="https://glints.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-500 dark:text-gray-400 hover:text-red-600"
-            >
-              <IoStarSharp size={20} />
-            </a>
+          {/* Social Icons */}
+          <div className="flex gap-3">
+            {[FaLinkedin, IoStarSharp, FaEnvelope, FaFacebookF].map(
+              (Icon, i) => (
+                <div
+                  key={i}
+                  className="bg-white/10 hover:bg-white/20 p-3 rounded-lg transition"
+                >
+                  <Icon className="text-white text-lg" />
+                </div>
+              )
+            )}
           </div>
+        </div>
+
+        {/* Quick Links */}
+        <div>
+          <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul className="space-y-2 text-sm">
+            <li>
+              <Link href="/" className="hover:underline">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" className="hover:underline">
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link href="/projects" className="hover:underline">
+                Projects
+              </Link>
+            </li>
+            <li>
+              <Link href="#contact" className="hover:underline">
+                Contact Us
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Contact Info */}
+        <div>
+          <h4 className="text-lg font-semibold mb-4">Contact</h4>
+          <p className="text-sm text-white/90 mb-2">
+            <strong>Jakarta Office:</strong> <br />
+            Jl. Pantai Indah Kapuk, Ruko Cordoba No.38 Blok H, <br />
+            Kamal Muara, Penjaringan, Jakarta Utara 14470
+          </p>
+          <p className="text-sm text-white/90 mb-1">+62 851765896523</p>
+          <p className="text-sm text-white/90">info@gmail.com</p>
         </div>
       </div>
 
-      <div className="text-center text-sm text-gray-400 mt-8">
-        &copy; {new Date().getFullYear()} Evindo Global Putra. All rights
-        reserved.
+      {/* Bottom Footer */}
+      <div className="container mx-auto border-t border-white/20 mt-10 pt-4 px-6 flex flex-col md:flex-row justify-between items-center text-sm text-white/70">
+        <div className="mb-3 md:mb-0">
+          &copy; {new Date().getFullYear()} Evindo Global Putra. All rights
+          reserved.
+        </div>
+        <div className="flex gap-4">
+          <Link href="/privacy" className="hover:underline">
+            Privacy Policy
+          </Link>
+          <Link href="/cookies" className="hover:underline">
+            Cookie Policy
+          </Link>
+        </div>
       </div>
     </footer>
   );

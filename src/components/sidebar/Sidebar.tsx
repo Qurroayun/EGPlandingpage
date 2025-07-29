@@ -3,14 +3,10 @@
 import { useSidebar } from "@/context/SidebarContext";
 import { cn } from "@/lib/utils";
 import {
-  Building,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
   ChevronUp,
-  Contact,
-  FileText,
-  Folder,
   LayoutDashboard,
   Lock,
   LogOut,
@@ -83,7 +79,8 @@ export default function Sidebar() {
             label="Projects"
           />
 
-          {/* Business Menu */}
+          {/* Subsidiaries & Investment - OFF */}
+          {/*
           <div>
             <button
               onClick={() => setBusinessOpen(!businessOpen)}
@@ -125,13 +122,16 @@ export default function Sidebar() {
               </div>
             )}
           </div>
+          */}
 
-          {/* Contact */}
+          {/* Contact - OFF */}
+          {/*
           <SidebarItem
             href="/dashboard/contact"
             icon={<Contact />}
             label="Contact"
           />
+          */}
 
           {/* Settings Menu with Submenu */}
           <div>
