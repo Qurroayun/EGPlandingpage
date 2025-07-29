@@ -40,16 +40,16 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET() {
-  try {
-    const categories = await prisma.businessCategory.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-    return NextResponse.json(categories);
-  } catch (error) {
-    console.error("❌ GET Error:", error);
-    return NextResponse.json("Failed to fetch categories", { status: 500 });
-  }
-}
+// export async function GET() {
+//   try {
+//     const categories = await prisma.businessCategory.findMany({
+//       orderBy: {
+//         createdAt: "desc",
+//       },
+//     });
+//     return NextResponse.json(categories);
+//   } catch (error) {
+//     console.error("❌ GET Error:", error);
+//     return NextResponse.json("Failed to fetch categories", { status: 500 });
+//   }
+// }

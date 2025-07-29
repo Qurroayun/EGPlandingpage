@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -53,49 +52,51 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <div className="container py-8 px-4 mx-auto">
+    <div className="container mx-auto py-10 px-4 space-y-10">
       <Button
         variant="outline"
-        className="transition-all duration-300 hover:scale-[1.03] 
-          bg-background text-foreground hover:bg-accent hover:text-accent-foreground
-          dark:bg-[#1e1e1e] dark:hover:bg-[#2e2e2e]"
+        className="mb-6 transition hover:scale-[1.03]"
         onClick={() => history.back()}
       >
         Back to Projects
       </Button>
 
-      <div className="mt-5">
-        <h1 className="text-3xl font-bold mb-6">{project.name}</h1>
-        <Card className="overflow-hidden shadow-xl">
-          <img
-            src={project.image}
-            alt={project.name}
-            className="w-full h-64 object-cover"
-          />
-          <CardContent className="p-6 space-y-4">
-            <div className="flex justify-between items-start">
-              <p className="text-gray-700 flex-1">
-                {project.description || "No description provided."}
-              </p>
+      {/* Baris 1: kiri gambar - kanan nama */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <img
+          src={project.image}
+          alt={project.name}
+          className="w-full h-64 object-cover rounded-xl shadow-md"
+        />
+        <h1 className="text-3xl font-bold text-blue-900 dark:text-white">
+          {project.name}
+        </h1>
+      </div>
 
-              {project.url && (
-                <Button asChild className="ml-4" variant="default">
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Visit Project
-                  </a>
-                </Button>
-              )}
-            </div>
+      {/* Baris 2: kiri deskripsi - kanan gambar */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <div>
+          <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed mb-4">
+            {project.description || "No description provided."}
+          </p>
+          <p className="text-sm text-gray-500 mt-2">
+            Diterbitkan: {formatTanggal(project.createdAt)}
+          </p>
 
-            <p className="text-sm text-gray-500 mt-4">
-              {formatTanggal(project.createdAt)}
-            </p>
-          </CardContent>
-        </Card>
+          {project.url && (
+            <Button asChild className="mt-4">
+              <a href={project.url} target="_blank" rel="noopener noreferrer">
+                Visit Project
+              </a>
+            </Button>
+          )}
+        </div>
+
+        <img
+          src={project.image}
+          alt={`${project.name}-secondary`}
+          className="w-full h-64 object-cover rounded-xl shadow-md"
+        />
       </div>
     </div>
   );
