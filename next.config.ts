@@ -6,7 +6,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "via.placeholder.com",
+        hostname: "lhiyaaygmrpifccnngro.supabase.co",
+        pathname: "/storage/v1/object/public/imagesproject/**",
       },
       // Kamu bisa tambahkan domain lain jika nanti pakai R2 atau CDN
       // {

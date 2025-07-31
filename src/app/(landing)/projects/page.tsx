@@ -83,7 +83,7 @@ export default function ProjectsPage() {
                     alt={project.name}
                     width={600}
                     height={400}
-                    className="rounded-md w-full h-48 md:h-40 object-cover"
+                    className="rounded-md w-full h-68 md:h-68 object-cover"
                   />
                 </div>
 

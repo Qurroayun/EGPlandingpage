@@ -1,6 +1,6 @@
 "use client";
-
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
@@ -59,7 +59,18 @@ export default function SectionProjects() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.2, duration: 0.6 }}
                 >
-                  <div className="w-full h-40 bg-gray-200 dark:bg-zinc-700 rounded mb-4" />
+                  {project.image ? (
+                    <Image
+                      src={project.image}
+                      alt={project.name}
+                      width={400}
+                      height={400}
+                      className="relative w-full h-68 object-cover rounded mb-4"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-full h-40 bg-gray-200 dark:bg-zinc-700 rounded mb-4" />
+                  )}
                   <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
                     {project.name}
                   </h3>
