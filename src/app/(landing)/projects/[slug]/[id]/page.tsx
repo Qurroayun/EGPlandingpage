@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -63,9 +64,11 @@ export default function ProjectDetailPage() {
 
       {/* Baris 1: kiri gambar - kanan nama */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <img
+        <Image
           src={project.image}
           alt={project.name}
+          width={512}
+          height={512}
           className="w-full h-96 object-cover rounded-xl shadow-md"
         />
         <h1 className="text-3xl font-bold text-blue-900 dark:text-white">
@@ -92,9 +95,13 @@ export default function ProjectDetailPage() {
           )}
         </div>
 
-        <img
+        <Image
           src={project.image}
           alt={`${project.name}-secondary`}
+          width={512}
+          height={512}
+          placeholder="blur"
+          blurDataURL="/blur-placeholder.jpg"
           className="w-full h-96 object-cover rounded-xl shadow-md"
         />
       </div>
