@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { supabase } from "@/lib/supabase";
 import { slugify } from "@/utils/slugify";
 import { NextResponse } from "next/server";
 
@@ -24,7 +25,13 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { name, description, url, image } = await request.json();
+    const formData = await request.formData();
+
+    const name = formData.get("name") as string;
+    const description = formData.get("description") as string;
+    const url = formData.get("url") as string;
+
+    const file = formData.get("image");
 
     if (!name) {
       return NextResponse.json(
@@ -33,17 +40,57 @@ export async function POST(request: Request) {
       );
     }
 
+    let imageUrl = "";
+
+    if (
+      file &&
+      typeof file === "object" &&
+      "type" in file &&
+      file.type?.startsWith("image/")
+    ) {
+      // file.name tidak dijamin ada, jadi fallback aman
+      const fileName = `${Date.now()}-${
+        (file as Blob & { name?: string }).name ?? "upload.jpg"
+      }`;
+
+      console.log("📤 File info:", {
+        name: (file as Blob & { name?: string }).name,
+        type: file.type,
+        size: file.size,
+      });
+
+      const { error: uploadError } = await supabase.storage
+        .from("imagesproject")
+        .upload(fileName, file as Blob, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+
+      if (uploadError) {
+        console.error("Upload error:", uploadError.message);
+        return NextResponse.json(
+          { message: "Failed to upload image", error: uploadError.message },
+          { status: 500 }
+        );
+      }
+
+      const { data: imageData } = supabase.storage
+        .from("imagesproject")
+        .getPublicUrl(fileName);
+
+      imageUrl = imageData.publicUrl;
+    }
+
     const slug = slugify(name);
     const newProject = await prisma.project.create({
       data: {
         name,
         description,
         url,
-        image: image || "https://via.placeholder.com/300",
+        image: imageUrl,
         slug,
       },
     });
-    console.log(newProject);
 
     return NextResponse.json(newProject);
   } catch (error) {

@@ -82,7 +82,7 @@ export default function SectionAbout() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2, duration: 0.5 }}
                 viewport={{ once: true }}
-                className="p-6 bg-white dark:bg-zinc-800 rounded-xl shadow hover:shadow-lg transition"
+                className="p-6 bg-white dark:bg-zinc-800 rounded-xl  hover:shadow-2xl dark:hover:shadow-2xl transition"
               >
                 <div className="w-10 h-10 bg-blue-900 rounded-md mb-4 flex items-center justify-center">
                   {card.icon}
