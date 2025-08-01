@@ -100,9 +100,7 @@ export default function ProjectDetailPage() {
           alt={`${project.name}-secondary`}
           width={512}
           height={512}
-          placeholder="blur"
-          blurDataURL="/blur-placeholder.jpg"
-          className="w-full h-96 object-cover rounded-xl shadow-md"
+          className="w-full h-96 object-cover rounded-xl shadow-md hidden md:block"
         />
       </div>
     </div>
