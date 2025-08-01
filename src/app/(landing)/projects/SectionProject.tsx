@@ -52,7 +52,7 @@ export default function SectionProjects() {
               <Link
                 key={project.id}
                 href={`/projects/${project.slug}/${project.id}`}
-                className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow hover:shadow-lg transition block border border-gray-400 dark:border-zinc-700"
+                className="bg-white dark:bg-zinc-800 p-6 rounded-xl dark:hover:shadow-2xl hover:shadow-2xl transition block border border-gray-400 dark:border-zinc-700"
               >
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}

@@ -66,7 +66,7 @@ export default function ProjectDetailPage() {
         <img
           src={project.image}
           alt={project.name}
-          className="w-full h-64 object-cover rounded-xl shadow-md"
+          className="w-full h-96 object-cover rounded-xl shadow-md"
         />
         <h1 className="text-3xl font-bold text-blue-900 dark:text-white">
           {project.name}
@@ -95,7 +95,7 @@ export default function ProjectDetailPage() {
         <img
           src={project.image}
           alt={`${project.name}-secondary`}
-          className="w-full h-64 object-cover rounded-xl shadow-md"
+          className="w-full h-96 object-cover rounded-xl shadow-md"
         />
       </div>
     </div>
