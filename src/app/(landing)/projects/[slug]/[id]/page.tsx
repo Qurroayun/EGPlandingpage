@@ -5,6 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import SectionRandomShow from "../../SectionRandomShow";
 
 export default function ProjectDetailPage() {
   const { id } = useParams();
@@ -100,10 +101,11 @@ export default function ProjectDetailPage() {
           alt={`${project.name}-secondary`}
           width={512}
           height={512}
-          placeholder="blur"
-          blurDataURL="/blur-placeholder.jpg"
-          className="w-full h-96 object-cover rounded-xl shadow-md"
+          className="w-full h-96 object-cover rounded-xl shadow-md hidden md:block"
         />
+      </div>
+      <div>
+        <SectionRandomShow />
       </div>
     </div>
   );
