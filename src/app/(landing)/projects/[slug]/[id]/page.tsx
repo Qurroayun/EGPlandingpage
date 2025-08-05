@@ -5,6 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import SectionRandomShow from "../../SectionRandomShow";
 
 export default function ProjectDetailPage() {
   const { id } = useParams();
@@ -102,6 +103,9 @@ export default function ProjectDetailPage() {
           height={512}
           className="w-full h-96 object-cover rounded-xl shadow-md hidden md:block"
         />
+      </div>
+      <div>
+        <SectionRandomShow />
       </div>
     </div>
   );
