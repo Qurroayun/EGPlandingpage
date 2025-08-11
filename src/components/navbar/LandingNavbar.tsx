@@ -53,8 +53,8 @@ export default function LandingNavbar() {
       <div
         className={`w-full transition-all duration-300 ${
           scrolled
-            ? "bg-blue-100 dark:bg-black shadow-lg"
-            : "bg-blue-100 dark:bg-black/50 backdrop-blur-md shadow-md"
+            ? "bg-white dark:bg-black shadow-lg"
+            : "bg-white dark:bg-black/50 backdrop-blur-md shadow-md"
         }`}
       >
         <div className="container mx-auto px-4 md:px-6">
