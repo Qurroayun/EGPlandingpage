@@ -54,7 +54,7 @@ export default function LandingNavbar() {
         className={`w-full transition-all duration-300 ${
           scrolled
             ? "bg-white dark:bg-black shadow-lg"
-            : "bg-white dark:bg-black/50 backdrop-blur-md shadow-md"
+            : "bg-white dark:bg-black backdrop-blur-md shadow-md"
         }`}
       >
         <div className="container mx-auto px-4 md:px-6">
@@ -107,7 +107,7 @@ export default function LandingNavbar() {
               </nav>
 
               <div className="flex items-center space-x-2">
-                <Link href="/auth/login">
+                {/* <Link href="/auth/login">
                   <Button
                     size="sm"
                     variant="outline"
@@ -115,7 +115,7 @@ export default function LandingNavbar() {
                   >
                     Login
                   </Button>
-                </Link>
+                </Link> */}
                 {mounted && (
                   <Button
                     size="icon"
@@ -181,7 +181,7 @@ export default function LandingNavbar() {
 
             {mounted && (
               <div className="flex items-center justify-between pt-2">
-                <Link href="/auth/login">
+                {/* <Link href="/auth/login">
                   <Button
                     size="sm"
                     variant="outline"
@@ -189,7 +189,7 @@ export default function LandingNavbar() {
                   >
                     Login
                   </Button>
-                </Link>
+                </Link> */}
                 <Button
                   size="icon"
                   variant="ghost"

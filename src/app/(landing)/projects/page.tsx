@@ -98,9 +98,6 @@ export default function ProjectsPage() {
                       {project.description.length > 300 ? "..." : ""}
                     </p>
                   )}
-                  <p className="text-xs text-gray-400 mb-4">
-                    Diterbitkan: {formatTanggal(project.createdAt)}
-                  </p>
 
                   <Link href={`/projects/${project.slug}/${project.id}`}>
                     <button className="group px-4 h-8 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-600 transition flex items-center gap-2 mt-2">

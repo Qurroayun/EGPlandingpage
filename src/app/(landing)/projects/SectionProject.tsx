@@ -16,11 +16,11 @@ interface Project {
 export default function SectionProjects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const baseUrl = process.env.NEXT_PUBLICURL || "";
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch("/api/projects");
+        const res = await fetch(`${baseUrl}/api/projects`);
         const data = await res.json();
         setProjects(data);
       } catch (error) {

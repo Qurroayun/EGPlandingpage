@@ -39,7 +39,7 @@ export default function SectionAbout() {
   ];
 
   return (
-    <section className="relative w-full min-h-screen bg-blue-100 dark:bg-blue-200 py-20 transition-colors duration-500 overflow-hidden">
+    <section className="relative w-full  min-h-screen bg-blue-100 dark:bg-blue-200 py-20 transition-colors duration-500 overflow-hidden flex items-center justify-center">
       {/* Background Decorative Blur */}
       <div className="absolute top-[-100px] left-[-100px] w-[300px] h-[300px] rounded-full bg-pink-500 blur-3xl opacity-20 animate-pulse-slow z-0" />
       <div className="absolute bottom-[-100px] right-[-100px] w-[300px] h-[300px] rounded-full bg-indigo-500 blur-3xl opacity-20 animate-pulse-slow z-0" />
