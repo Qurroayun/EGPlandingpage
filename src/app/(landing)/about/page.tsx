@@ -111,7 +111,7 @@ export default function AboutPage() {
           transition={{ duration: 0.8 }}
           className="container mx-auto text-center"
         >
-          <h2 className="text-3xl text-blue-900 font-bold mb-4">Who We Are</h2>
+          <h2 className="text-3xl text-blue-700 font-bold mb-4">Who We Are</h2>
           <p className="max-w-3xl mx-auto text-gray-400 dark:text-gray-300 text-md mb-10">
             Kami adalah tim multidisiplin yang terdiri dari engineer,
             strategist, dan problem-solver yang percaya bahwa setiap bisnis

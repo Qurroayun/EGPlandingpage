@@ -83,9 +83,6 @@ export default function ProjectDetailPage() {
           <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed mb-4">
             {project.description || "No description provided."}
           </p>
-          <p className="text-sm text-gray-500 mt-2">
-            Diterbitkan: {formatTanggal(project.createdAt)}
-          </p>
 
           {project.url && (
             <Button asChild className="mt-4">

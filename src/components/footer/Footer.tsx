@@ -7,7 +7,7 @@ import { IoStarSharp } from "react-icons/io5";
 
 export default function Footer() {
   return (
-    <footer className="bg-blue-900  text-white py-12 mt-16">
+    <footer className="bg-blue-900  text-white py-12 ">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-10">
         {/* Logo & Description */}
         <div>
