@@ -22,8 +22,6 @@ export default function Home() {
     setLoading(false);
   };
 
-  // Tampilkan SplashScreen saat loading = true,
-  // dan setelah selesai tampilkan konten utama
   if (loading) {
     return <SplashScreen onFinish={handleFinishSplash} />;
   }

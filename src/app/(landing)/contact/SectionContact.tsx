@@ -70,9 +70,9 @@ export default function SectionContact() {
               Get In Touch
             </h1>
             <p className="text-gray-400 dark:text-gray-400 mb-10">
-              Ready to explore partnership opportunities? We'd love to hear from
-              you. Let's discuss how we can help your business reach its full
-              potential.
+              Siap menjelajahi peluang kemitraan? Kami ingin sekali mendengar
+              dari Anda. Mari diskusikan bagaimana kami dapat membantu bisnis
+              Anda mencapai potensi maksimalnya.
             </p>
           </div>
         </motion.div>
@@ -87,7 +87,7 @@ export default function SectionContact() {
           >
             <div className="p-6 border rounded-xl shadow bg-white dark:bg-zinc-800">
               <p className="mb-6 text-lg font-semibold text-gray-700 dark:text-gray-200">
-                Kirim Pesan
+                Send Message
               </p>
               <form className="space-y-4" onSubmit={handleSubmit}>
                 <div>
