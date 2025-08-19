@@ -40,8 +40,9 @@ export default function SectionProjects() {
           Our Subsidiaries & Investment
         </h2>
         <p className="text-center text-gray-400 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
+          Dengan jaringan anak perusahaan dan investasi lintas sektor, kami
+          terus memperluas jangkauan dan memberikan nilai tambah bagi
+          stakeholder.
         </p>
 
         {loading ? (

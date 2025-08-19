@@ -52,7 +52,7 @@ export default function SectionLanding() {
             transition={{ delay: 0.8, duration: 0.8 }}
             className="mt-10 flex justify-center flex-wrap gap-4"
           >
-            <Link href="https://linkedin.com" target="_blank">
+            <Link href="/about">
               <Button className="group px-8 py-4 text-base md:text-lg font-medium rounded-xl bg-blue-900 text-white hover:bg-blue-600 transition-all duration-300 shadow-md flex items-center gap-2">
                 Find Out More
                 <FaRegArrowAltCircleRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" />
