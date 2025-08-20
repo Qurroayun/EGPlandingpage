@@ -7,7 +7,7 @@ import { IoStarSharp } from "react-icons/io5";
 
 export default function Footer() {
   return (
-    <footer className="bg-blue-900  text-white py-12 mt-16">
+    <footer className="bg-blue-900  text-white py-12 ">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-10">
         {/* Logo & Description */}
         <div>
@@ -21,9 +21,8 @@ export default function Footer() {
             <span className="text-lg font-semibold">Evindo Global Putra</span>
           </div>
           <p className="text-sm text-white/90 leading-relaxed mb-6">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae
-            adipisci assumenda labore ratione atque asperiores, odit est
-            molestias.
+            Evindo Global Putra, mitra strategis untuk pertumbuhan berkelanjutan
+            dan inovasi lintas industri.
           </p>
 
           {/* Social Icons */}
@@ -76,8 +75,8 @@ export default function Footer() {
             Jl. Pantai Indah Kapuk, Ruko Cordoba No.38 Blok H, <br />
             Kamal Muara, Penjaringan, Jakarta Utara 14470
           </p>
-          <p className="text-sm text-white/90 mb-1">+62 851765896523</p>
-          <p className="text-sm text-white/90">info@gmail.com</p>
+          <p className="text-sm text-white/90 mb-2">+62 851765896523</p>
+          <p className="text-sm text-white/90 mt-3">info@gmail.com</p>
         </div>
       </div>
 

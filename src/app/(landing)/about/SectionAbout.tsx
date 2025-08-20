@@ -15,31 +15,31 @@ export default function SectionAbout() {
     {
       title: "Strategic Vision",
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "Visi strategis kami berfokus pada menciptakan nilai jangka panjang melalui diversifikasi portofolio, investasi berkelanjutan, dan kepemimpinan yang berorientasi masa depan.",
       icon: <FaLightbulb className="text-white w-5 h-5" />,
     },
     {
-      title: "Market Position",
+      title: "Innovation",
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "Kami terus berinovasi dalam setiap langkah bisnis, mengadopsi teknologi dan ide baru untuk memperkuat daya saing serta menghadirkan solusi yang relevan bagi pasar global.",
       icon: <FaChartLine className="text-white w-5 h-5" />,
     },
     {
-      title: "Innovation & Growth",
+      title: "Global Connections",
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "Dengan jaringan internasional yang kuat, kami membangun kolaborasi lintas negara untuk membuka peluang pertumbuhan baru dan memperluas dampak positif investasi.",
       icon: <FaRocket className="text-white w-5 h-5" />,
     },
     {
-      title: "Sustainable Impact",
+      title: "Premium Support",
       description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "Kami menghadirkan dukungan premium bagi mitra dan stakeholder, memastikan layanan yang responsif, profesional, dan berorientasi pada hasil terbaik.",
       icon: <FaLeaf className="text-white w-5 h-5" />,
     },
   ];
 
   return (
-    <section className="relative w-full min-h-screen bg-blue-100 dark:bg-blue-200 py-20 transition-colors duration-500 overflow-hidden">
+    <section className="relative w-full  min-h-screen bg-blue-100 dark:bg-blue-200 py-20 transition-colors duration-500 overflow-hidden flex items-center justify-center">
       {/* Background Decorative Blur */}
       <div className="absolute top-[-100px] left-[-100px] w-[300px] h-[300px] rounded-full bg-pink-500 blur-3xl opacity-20 animate-pulse-slow z-0" />
       <div className="absolute bottom-[-100px] right-[-100px] w-[300px] h-[300px] rounded-full bg-indigo-500 blur-3xl opacity-20 animate-pulse-slow z-0" />
@@ -53,14 +53,19 @@ export default function SectionAbout() {
             </h2>
             <div className="space-y-4 text-gray-600 dark:text-black">
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry’s standard dummy
-                text ever since the 1500s.
+                Strategic Holdings merupakan inti dari strategi pertumbuhan
+                jangka panjang kami. Melalui diversifikasi portofolio, investasi
+                lintas industri, serta manajemen yang berorientasi pada hasil,
+                kami terus membangun fondasi yang kuat untuk menciptakan nilai
+                berkelanjutan. Komitmen kami tidak hanya pada profitabilitas,
+                tetapi juga pada inovasi, kolaborasi, serta kontribusi nyata
+                bagi masyarakat dan lingkungan.
               </p>
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry’s standard dummy
-                text ever since the 1500s.
+                Kami percaya bahwa setiap investasi bukan sekadar angka,
+                melainkan sebuah langkah strategis untuk menciptakan perubahan.
+                Strategic Holdings hadir untuk membangun masa depan yang
+                inovatif, berdaya saing, dan berkelanjutan.
               </p>
             </div>
             <div className="items-start flex text-center mt-10">
@@ -82,7 +87,7 @@ export default function SectionAbout() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2, duration: 0.5 }}
                 viewport={{ once: true }}
-                className="p-6 bg-white dark:bg-zinc-800 rounded-xl shadow hover:shadow-lg transition"
+                className="p-6 bg-white dark:bg-zinc-800 rounded-xl  hover:shadow-2xl dark:hover:shadow-2xl transition"
               >
                 <div className="w-10 h-10 bg-blue-900 rounded-md mb-4 flex items-center justify-center">
                   {card.icon}

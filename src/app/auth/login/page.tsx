@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signIn } from "next-auth/react"; // 🧠 PENTING
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -106,12 +105,12 @@ export default function LoginPage() {
         </Button>
       </div>
 
-      <p className="text-sm mt-4 text-center">
+      {/* <p className="text-sm mt-4 text-center">
         Belum punya akun?{" "}
         <Link href="/auth/register" className="underline text-blue-600">
           Daftar sekarang
         </Link>
-      </p>
+      </p> */}
     </div>
   );
 }

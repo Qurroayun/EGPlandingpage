@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
-import { FaBullseye, FaEye, FaHandshake, FaRocket } from "react-icons/fa";
+import { FaBullseye, FaEye } from "react-icons/fa";
 import SectionContact from "../contact/SectionContact";
 import SectionProjects from "../projects/SectionProject";
 
@@ -32,11 +32,12 @@ export default function AboutPage() {
               Innovative Support and Solution
             </h1>
             <p className="text-md text-gray-600 dark:text-gray-300">
-              At PT EVINDO GLOBAL PUTRA, We understand the hustle of building
-              something new. That's why we're here to help startups like yours
-              scale smarter, not harder. Whether you're refining your MVP or
-              gearing up for rapid growth, we build systems that grow with you
-              and spark innovation where it matters most.
+              PT EVINDO GLOBAL PUTRA, kami memahami kesulitan membangun sesuatu
+              yang baru. Itulah sebabnya kami hadir untuk membantu startup
+              seperti Anda berkembang lebih cerdas, bukan lebih keras. Baik Anda
+              sedang menyempurnakan MVP atau bersiap untuk pertumbuhan pesat,
+              kami membangun sistem yang tumbuh bersama Anda dan memicu inovasi
+              di area yang paling penting.
             </p>
           </div>
 
@@ -62,39 +63,39 @@ export default function AboutPage() {
           transition={{ duration: 0.8 }}
           className="container mx-auto"
         >
-          <div className="space-y-8">
+          <div className="space-y-8 md:text-wrap">
             {[
               {
                 icon: <FaEye className="text-white text-xl" />,
                 title: "Our Vision",
-                desc: "Menjadi perusahaan teknologi terdepan yang memberikan solusi inovatif dan berdampak positif bagi masyarakat global.",
+                desc: "To empower businesses with smart, adaptive, and scalable solutions so they can grow faster, work smarter, and innovate endlessly.",
               },
               {
                 icon: <FaBullseye className="text-white text-xl" />,
                 title: "Our Mission",
-                desc: "Membangun ekosistem digital yang kolaboratif, berkelanjutan, dan mampu mempercepat transformasi industri melalui teknologi.",
+                desc: "We exist to help our partners solve real problems through technology. From system development to business process transformation, we create solutions that drive measurable impact no fluff, just results.",
               },
-              {
-                icon: <FaHandshake className="text-white text-xl" />,
-                title: "Collaboration",
-                desc: "Kami percaya bahwa kerja sama yang solid adalah fondasi untuk mencapai hasil luar biasa bersama mitra & tim.",
-              },
-              {
-                icon: <FaRocket className="text-white text-xl" />,
-                title: "Growth",
-                desc: "Kami berkomitmen untuk pertumbuhan berkelanjutan baik dalam skala bisnis maupun pengembangan SDM.",
-              },
+              // {
+              //   icon: <FaHandshake className="text-white text-xl" />,
+              //   title: "Collaboration",
+              //   desc: "Kami percaya bahwa sinergi dan kolaborasi strategis dengan mitra, klien, serta pemangku kepentingan merupakan kunci untuk mencapai pertumbuhan berkelanjutan.",
+              // },
+              // {
+              //   icon: <FaRocket className="text-white text-xl" />,
+              //   title: "Growth",
+              //   desc: "Pertumbuhan bagi kami tidak hanya terletak pada ekspansi bisnis, tetapi juga pada penguatan kapasitas, pengembangan talenta, serta penciptaan nilai jangka panjang bagi semua stakeholder.",
+              // },
             ].map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 animate={visionInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="flex items-start gap-6"
+                className="flex items-start gap-6 max-w-xl"
               >
                 <div className="bg-blue-700 p-4 rounded-md">{item.icon}</div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-1">{item.title}</h3>
+                  <h3 className="text-3xl font-semibold mb-1">{item.title}</h3>
                   <p className="">{item.desc}</p>
                 </div>
               </motion.div>
@@ -111,7 +112,7 @@ export default function AboutPage() {
           transition={{ duration: 0.8 }}
           className="container mx-auto text-center"
         >
-          <h2 className="text-3xl text-blue-900 font-bold mb-4">Who We Are</h2>
+          <h2 className="text-3xl text-blue-700 font-bold mb-4">Who We Are</h2>
           <p className="max-w-3xl mx-auto text-gray-400 dark:text-gray-300 text-md mb-10">
             Kami adalah tim multidisiplin yang terdiri dari engineer,
             strategist, dan problem-solver yang percaya bahwa setiap bisnis

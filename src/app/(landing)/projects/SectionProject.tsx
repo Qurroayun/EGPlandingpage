@@ -16,11 +16,11 @@ interface Project {
 export default function SectionProjects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const baseUrl = process.env.NEXT_PUBLICURL || "";
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch("/api/projects");
+        const res = await fetch(`${baseUrl}/api/projects`);
         const data = await res.json();
 
         // Shuffle projects agar random
@@ -43,8 +43,9 @@ export default function SectionProjects() {
           Our Subsidiaries & Investment
         </h2>
         <p className="text-center text-gray-400 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
+          Dengan jaringan anak perusahaan dan investasi lintas sektor, kami
+          terus memperluas jangkauan dan memberikan nilai tambah bagi
+          stakeholder.
         </p>
 
         {loading ? (
