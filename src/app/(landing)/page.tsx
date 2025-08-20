@@ -13,13 +13,13 @@ export default function Home() {
   useEffect(() => {
     const splashDown = localStorage.getItem("splashScreenShown");
     if (splashDown === "true") {
-      setLoading(true);
+      setLoading(false);
     }
   }, []);
 
   const handleFinishSplash = () => {
     localStorage.setItem("splashScreenShown", "true");
-    setLoading(false);
+    setLoading(true);
   };
 
   if (loading) {

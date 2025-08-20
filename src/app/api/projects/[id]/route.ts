@@ -38,54 +38,85 @@ export async function PUT(
     const name = formData.get("name") as string;
     const description = formData.get("description") as string;
     const url = formData.get("url") as string;
-    const file = formData.get("image");
 
+    if (!name) {
+      return NextResponse.json(
+        { message: "Project name is required" },
+        { status: 400 }
+      );
+    }
+
+    const MAX_FILES = 5;
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+    const files = formData.getAll("image") as (File | Blob)[];
+
+    if (files.length > MAX_FILES) {
+      return NextResponse.json(
+        { message: `You can upload up to ${MAX_FILES} images only.` },
+        { status: 400 }
+      );
+    }
+
+    // Ambil existing project
     const existingProject = await prisma.project.findUnique({ where: { id } });
     if (!existingProject) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
 
-    let imageUrl = existingProject.image;
+    let imageUrls: string[] = [];
 
-    // Jika ada file baru, upload dan update image
-    if (file && file instanceof File && file.type.startsWith("image/")) {
-      const fileName = `${Date.now()}-${file.name}`;
+    if (files.length > 0) {
+      // Upload file baru
+      for (const file of files) {
+        if (
+          file &&
+          "type" in file &&
+          file.type.startsWith("image/") &&
+          (file as File).size <= MAX_FILE_SIZE
+        ) {
+          const fileName = `${Date.now()}-${
+            (file as File & { name?: string }).name ?? "upload.jpg"
+          }`;
 
-      const { error: uploadError } = await supabase.storage
-        .from("imagesproject")
-        .upload(fileName, file, {
-          cacheControl: "3600",
-          upsert: false,
-        });
+          const { error: uploadError } = await supabase.storage
+            .from("imagesproject")
+            .upload(fileName, file as Blob, {
+              cacheControl: "3600",
+              upsert: false,
+            });
 
-      if (uploadError) {
-        console.error("Upload error:", uploadError.message);
-        return NextResponse.json(
-          { message: "Failed to upload image" },
-          { status: 500 }
-        );
+          if (uploadError) {
+            console.error("Upload error:", uploadError.message);
+            continue;
+          }
+
+          const { data: imageData } = supabase.storage
+            .from("imagesproject")
+            .getPublicUrl(fileName);
+
+          if (imageData?.publicUrl) imageUrls.push(imageData.publicUrl);
+        } else {
+          console.warn("Skipped file due to size/type limit:", file);
+        }
       }
-
-      const { data: imageData } = supabase.storage
-        .from("imagesproject")
-        .getPublicUrl(fileName);
-
-      imageUrl = imageData.publicUrl;
-
-      // Optional: Hapus gambar lama jika berbeda
-      if (existingProject.image) {
-        const oldPath = existingProject.image.split("/").pop(); // ambil filename
-        await supabase.storage.from("imagesproject").remove([oldPath!]);
-      }
+    } else {
+      // Tidak ada file baru → pakai image lama
+      imageUrls = Array.isArray(existingProject.image)
+        ? [...existingProject.image]
+        : existingProject.image
+        ? [existingProject.image]
+        : [];
     }
 
+    // Update project
     const updated = await prisma.project.update({
       where: { id },
       data: {
         name,
         description,
         url,
-        image: imageUrl,
+        image: imageUrls,
         slug: slugify(name),
       },
     });
@@ -94,7 +125,7 @@ export async function PUT(
   } catch (error) {
     console.error("❌ Failed to update project:", error);
     return NextResponse.json(
-      { message: "Failed to update project" },
+      { message: "Failed to update project", error: String(error) },
       { status: 500 }
     );
   }
@@ -114,10 +145,15 @@ export async function DELETE(
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
 
-    // Hapus image dari Supabase Storage
-    if (project.image) {
-      const fileName = project.image.split("/").pop();
-      await supabase.storage.from("imagesproject").remove([fileName!]);
+    // Hapus semua image dari Supabase Storage
+    if (Array.isArray(project.image) && project.image.length > 0) {
+      const fileNames = project.image
+        .map((url) => url.split("/").pop()!)
+        .filter(Boolean);
+
+      if (fileNames.length > 0) {
+        await supabase.storage.from("imagesproject").remove(fileNames);
+      }
     }
 
     await prisma.project.delete({ where: { id } });
@@ -129,7 +165,7 @@ export async function DELETE(
   } catch (error) {
     console.error("❌ Failed to delete project:", error);
     return NextResponse.json(
-      { message: "Failed to delete project" },
+      { message: "Failed to delete project", error: String(error) },
       { status: 500 }
     );
   }
