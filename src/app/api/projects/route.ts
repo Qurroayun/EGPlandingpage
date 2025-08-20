@@ -31,8 +31,6 @@ export async function POST(request: Request) {
     const description = formData.get("description") as string;
     const url = formData.get("url") as string;
 
-    const file = formData.get("image");
-
     if (!name) {
       return NextResponse.json(
         { message: "Project name is required" },
@@ -40,54 +38,52 @@ export async function POST(request: Request) {
       );
     }
 
-    let imageUrl = "";
+    // Ambil semua files (array), fallback ke array kosong
+    const files = formData.getAll("image") as (File | Blob)[];
+    const imageUrls: string[] = [];
 
-    if (
-      file &&
-      typeof file === "object" &&
-      "type" in file &&
-      file.type?.startsWith("image/")
-    ) {
-      // file.name tidak dijamin ada, jadi fallback aman
-      const fileName = `${Date.now()}-${
-        (file as Blob & { name?: string }).name ?? "upload.jpg"
-      }`;
+    for (const file of files) {
+      if (file && "type" in file && file.type.startsWith("image/")) {
+        const fileName = `${Date.now()}-${
+          (file as File & { name?: string }).name ?? "upload.jpg"
+        }`;
 
-      console.log("📤 File info:", {
-        name: (file as Blob & { name?: string }).name,
-        type: file.type,
-        size: file.size,
-      });
-
-      const { error: uploadError } = await supabase.storage
-        .from("imagesproject")
-        .upload(fileName, file as Blob, {
-          cacheControl: "3600",
-          upsert: false,
+        console.log("📤 File info:", {
+          name: (file as File & { name?: string }).name,
+          type: file.type,
+          size: (file as File).size,
         });
 
-      if (uploadError) {
-        console.error("Upload error:", uploadError.message);
-        return NextResponse.json(
-          { message: "Failed to upload image", error: uploadError.message },
-          { status: 500 }
-        );
+        // Upload ke Supabase
+        const { error: uploadError } = await supabase.storage
+          .from("imagesproject")
+          .upload(fileName, file as Blob, {
+            cacheControl: "3600",
+            upsert: false,
+          });
+
+        if (uploadError) {
+          console.error("Upload error:", uploadError.message);
+          continue; // skip file gagal
+        }
+
+        const { data: imageData } = supabase.storage
+          .from("imagesproject")
+          .getPublicUrl(fileName);
+
+        if (imageData?.publicUrl) imageUrls.push(imageData.publicUrl);
       }
-
-      const { data: imageData } = supabase.storage
-        .from("imagesproject")
-        .getPublicUrl(fileName);
-
-      imageUrl = imageData.publicUrl;
     }
 
+    // Pastikan selalu array, meskipun kosong
     const slug = slugify(name);
+
     const newProject = await prisma.project.create({
       data: {
         name,
         description,
         url,
-        image: imageUrl,
+        image: imageUrls, // array URL, cocok untuk Prisma String[]
         slug,
       },
     });

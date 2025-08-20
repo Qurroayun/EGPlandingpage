@@ -20,7 +20,7 @@ interface Project {
   id: string;
   slug: string;
   name: string;
-  image?: string;
+  image?: string[]; // ⚡ array string
   description?: string;
   createdAt: string;
 }
@@ -49,7 +49,6 @@ export default function ProjectsPage() {
   return (
     <div className="bg-white dark:bg-black py-16 px-4">
       <div className="container mx-auto">
-        {/* Title & Desc */}
         <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-4">
           Our Subsidiaries & Investment
         </h1>
@@ -60,7 +59,6 @@ export default function ProjectsPage() {
           rerum molestiae.
         </p>
 
-        {/* Project List */}
         {projects.length === 0 ? (
           <p className="text-gray-500 text-center">
             Belum ada project yang tersedia.
@@ -76,10 +74,14 @@ export default function ProjectsPage() {
                 viewport={{ once: true }}
                 className="flex flex-col md:flex-row items-start gap-6 bg-white dark:bg-zinc-900 rounded-xl shadow hover:shadow-md p-6 border border-gray-200 dark:border-zinc-700 transition"
               >
-                {/* Gambar */}
+                {/* Hanya tampilkan 1 gambar pertama */}
                 <div className="w-full md:w-1/3">
                   <Image
-                    src={project.image || "https://via.placeholder.com/600x400"}
+                    src={
+                      project.image && project.image.length > 0
+                        ? project.image[0] // ⚡ ambil gambar pertama
+                        : "https://via.placeholder.com/600x400"
+                    }
                     alt={project.name}
                     width={600}
                     height={400}
@@ -87,7 +89,6 @@ export default function ProjectsPage() {
                   />
                 </div>
 
-                {/* Text */}
                 <div className="flex-1">
                   <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
                     {project.name}
@@ -98,9 +99,6 @@ export default function ProjectsPage() {
                       {project.description.length > 300 ? "..." : ""}
                     </p>
                   )}
-                  <p className="text-xs text-gray-400 mb-4">
-                    Diterbitkan: {formatTanggal(project.createdAt)}
-                  </p>
 
                   <Link href={`/projects/${project.slug}/${project.id}`}>
                     <button className="group px-4 h-8 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-600 transition flex items-center gap-2 mt-2">
