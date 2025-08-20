@@ -46,7 +46,17 @@ export async function PUT(
       );
     }
 
+    const MAX_FILES = 5;
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
     const files = formData.getAll("image") as (File | Blob)[];
+
+    if (files.length > MAX_FILES) {
+      return NextResponse.json(
+        { message: `You can upload up to ${MAX_FILES} images only.` },
+        { status: 400 }
+      );
+    }
 
     // Ambil existing project
     const existingProject = await prisma.project.findUnique({ where: { id } });
@@ -57,9 +67,14 @@ export async function PUT(
     let imageUrls: string[] = [];
 
     if (files.length > 0) {
-      // Upload file baru dan replace gambar lama
+      // Upload file baru
       for (const file of files) {
-        if (file && "type" in file && file.type.startsWith("image/")) {
+        if (
+          file &&
+          "type" in file &&
+          file.type.startsWith("image/") &&
+          (file as File).size <= MAX_FILE_SIZE
+        ) {
           const fileName = `${Date.now()}-${
             (file as File & { name?: string }).name ?? "upload.jpg"
           }`;
@@ -73,7 +88,7 @@ export async function PUT(
 
           if (uploadError) {
             console.error("Upload error:", uploadError.message);
-            continue; // skip file gagal
+            continue;
           }
 
           const { data: imageData } = supabase.storage
@@ -81,6 +96,8 @@ export async function PUT(
             .getPublicUrl(fileName);
 
           if (imageData?.publicUrl) imageUrls.push(imageData.publicUrl);
+        } else {
+          console.warn("Skipped file due to size/type limit:", file);
         }
       }
     } else {

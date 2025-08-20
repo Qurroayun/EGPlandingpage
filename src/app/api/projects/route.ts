@@ -3,14 +3,35 @@ import { supabase } from "@/lib/supabase";
 import { slugify } from "@/utils/slugify";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
-    const projects = await prisma.project.findMany({
-      orderBy: {
-        createdAt: "desc" as const, // Type assertion untuk Prisma
-      },
-    });
-    return NextResponse.json(projects);
+    const url = new URL(req.url);
+    const all = url.searchParams.get("all") === "true"; // cek query all
+    const page = parseInt(url.searchParams.get("page") || "1");
+    const limit = parseInt(url.searchParams.get("limit") || "5");
+    const skip = (page - 1) * limit;
+
+    let projects, total;
+
+    if (all) {
+      // Ambil semua project tanpa limit
+      projects = await prisma.project.findMany({
+        orderBy: { createdAt: "asc" },
+      });
+      total = projects.length;
+    } else {
+      // Ambil dengan pagination
+      [projects, total] = await Promise.all([
+        prisma.project.findMany({
+          skip,
+          take: limit,
+          orderBy: { createdAt: "asc" },
+        }),
+        prisma.project.count(),
+      ]);
+    }
+
+    return NextResponse.json({ projects, total });
   } catch (error) {
     console.error("❌ Failed to fetch projects:", error);
     return NextResponse.json(
@@ -38,17 +59,34 @@ export async function POST(request: Request) {
       );
     }
 
+    const MAX_FILES = 5;
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
     // Ambil semua files (array), fallback ke array kosong
     const files = formData.getAll("image") as (File | Blob)[];
+
+    if (files.length > MAX_FILES) {
+      return NextResponse.json(
+        { message: `You can upload up to ${MAX_FILES} images only.` },
+        { status: 400 }
+      );
+    }
+
     const imageUrls: string[] = [];
 
     for (const file of files) {
-      if (file && "type" in file && file.type.startsWith("image/")) {
+      // Validasi file tipe image dan ukuran
+      if (
+        file &&
+        "type" in file &&
+        file.type.startsWith("image/") &&
+        (file as File).size <= MAX_FILE_SIZE
+      ) {
         const fileName = `${Date.now()}-${
           (file as File & { name?: string }).name ?? "upload.jpg"
         }`;
 
-        console.log("📤 File info:", {
+        console.log("📤 Uploading file:", {
           name: (file as File & { name?: string }).name,
           type: file.type,
           size: (file as File).size,
@@ -72,10 +110,12 @@ export async function POST(request: Request) {
           .getPublicUrl(fileName);
 
         if (imageData?.publicUrl) imageUrls.push(imageData.publicUrl);
+      } else {
+        console.warn("Skipped file due to size/type limit:", file);
       }
     }
 
-    // Pastikan selalu array, meskipun kosong
+    // Generate slug dari nama project
     const slug = slugify(name);
 
     const newProject = await prisma.project.create({
@@ -83,7 +123,7 @@ export async function POST(request: Request) {
         name,
         description,
         url,
-        image: imageUrls, // array URL, cocok untuk Prisma String[]
+        image: imageUrls,
         slug,
       },
     });

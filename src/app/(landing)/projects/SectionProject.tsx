@@ -1,4 +1,5 @@
 "use client";
+
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,24 +18,32 @@ export default function SectionProjects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const baseUrl = process.env.NEXT_PUBLICURL || "";
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`${baseUrl}/api/projects`);
+        const res = await fetch(`${baseUrl}/api/projects?all=true`);
         const data = await res.json();
 
+        // Pastikan data.projects adalah array
+        const projectList: Project[] = Array.isArray(data.projects)
+          ? data.projects
+          : [];
+
         // Shuffle projects agar random
-        const shuffled = data.sort(() => Math.random() - 0.5);
+        const shuffled = projectList.sort(() => Math.random() - 0.5);
+
         setProjects(shuffled.slice(0, 6)); // ambil maksimal 6
       } catch (error) {
         console.error("Failed to fetch projects:", error);
+        setProjects([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchProjects();
-  }, []);
+  }, [baseUrl]);
 
   return (
     <section className="py-20 container mx-auto min-h-screen bg-white dark:bg-black transition-colors duration-500">
@@ -53,7 +62,6 @@ export default function SectionProjects() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {projects.map((project, i) => {
-              // ambil gambar utama jika project.image adalah array
               const imageUrl = Array.isArray(project.image)
                 ? project.image[0]
                 : project.image;

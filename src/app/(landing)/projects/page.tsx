@@ -6,21 +6,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 
-// Format tanggal Indonesia
-function formatTanggal(dateString: string) {
-  const date = new Date(dateString);
-  return date.toLocaleDateString("id-ID", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
-
 interface Project {
   id: string;
   slug: string;
   name: string;
-  image?: string[]; // ⚡ array string
+  image?: string[];
   description?: string;
   createdAt: string;
 }
@@ -31,9 +21,11 @@ export default function ProjectsPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/api/projects");
+        const res = await fetch("/api/projects?all=true");
         const data = await res.json();
-        setProjects(data);
+
+        // Pastikan kita ambil data.projects yang berupa array
+        setProjects(Array.isArray(data.projects) ? data.projects : []);
       } catch (error) {
         console.error("Fetch error:", error);
         setProjects([]);
@@ -49,14 +41,14 @@ export default function ProjectsPage() {
   return (
     <div className="bg-white dark:bg-black py-16 px-4">
       <div className="container mx-auto">
-        <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-4">
+        <h1 className="text-5xl font-bold text-center text-gray-800 dark:text-white mb-4">
           Our Subsidiaries & Investment
         </h1>
-        <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, maxime
-          voluptate architecto, delectus tenetur fugiat deleniti quae, pariatur
-          fuga nobis repellendus nulla? Optio iusto error asperiores inventore
-          rerum molestiae.
+        <p className="text-xl text-center text-gray-600 dark:text-gray-400 mb-12 max-w-6xl mx-auto">
+          Dengan jaringan anak perusahaan dan investasi lintas sektor, kami
+          terus memperluas jangkauan dan memberikan nilai tambah bagi
+          stakeholder. Temukan proyek-proyek unggulan yang sedang kami jalankan
+          dan bagaimana kontribusinya terhadap pertumbuhan bisnis kami.
         </p>
 
         {projects.length === 0 ? (
@@ -79,10 +71,10 @@ export default function ProjectsPage() {
                   <Image
                     src={
                       project.image && project.image.length > 0
-                        ? project.image[0] // ⚡ ambil gambar pertama
-                        : "https://via.placeholder.com/600x400"
+                        ? project.image[0]
+                        : "https://via.placeholder.com/600x400?text=No+Image"
                     }
-                    alt={project.name}
+                    alt={project.name || "Project Image"}
                     width={600}
                     height={400}
                     className="rounded-md w-full h-68 md:h-68 object-cover"
@@ -90,13 +82,13 @@ export default function ProjectsPage() {
                 </div>
 
                 <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+                  <h2 className="text-3xl font-semibold text-gray-800 dark:text-white mb-2">
                     {project.name}
                   </h2>
                   {project.description && (
-                    <p className="text-gray-600 dark:text-gray-300 mb-3 text-sm">
-                      {project.description.slice(0, 300)}
-                      {project.description.length > 300 ? "..." : ""}
+                    <p className="text-gray-600 dark:text-gray-300 mb-3 text-md">
+                      {project.description.slice(0, 100)}
+                      {project.description.length > 100 ? "..." : ""}
                     </p>
                   )}
 
