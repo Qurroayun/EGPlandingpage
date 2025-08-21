@@ -51,7 +51,7 @@ export default function SectionProjects() {
         <h2 className="text-3xl md:text-5xl font-bold text-center text-blue-900 dark:text-white mb-6">
           Our Subsidiaries & Investment
         </h2>
-        <p className="text-center text-gray-400 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
+        <p className="text-center text-xl  text-gray-400 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
           Dengan jaringan anak perusahaan dan investasi lintas sektor, kami
           terus memperluas jangkauan dan memberikan nilai tambah bagi
           stakeholder.
@@ -60,7 +60,7 @@ export default function SectionProjects() {
         {loading ? (
           <p className="text-center text-gray-500">Loading projects...</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, i) => {
               const imageUrl = Array.isArray(project.image)
                 ? project.image[0]

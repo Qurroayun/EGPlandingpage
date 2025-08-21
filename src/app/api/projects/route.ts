@@ -10,6 +10,7 @@ export async function GET(req: Request) {
     const page = parseInt(url.searchParams.get("page") || "1");
     const limit = parseInt(url.searchParams.get("limit") || "5");
     const skip = (page - 1) * limit;
+    const search = url.searchParams.get("search") || "";
 
     let projects, total;
 

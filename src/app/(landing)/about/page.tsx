@@ -28,10 +28,10 @@ export default function AboutPage() {
           className="grid md:grid-cols-2 gap-10 items-center"
         >
           <div>
-            <h1 className="text-5xl font-extrabold mb-6 leading-tight">
+            <h1 className="lg:text-5xl md:text-3xl text-2xl font-extrabold mb-6 leading-tight">
               Innovative Support and Solution
             </h1>
-            <p className="text-md text-gray-600 dark:text-gray-300">
+            <p className="lg:text-xl md:text-xl text-sm text-gray-600 dark:text-gray-300">
               PT EVINDO GLOBAL PUTRA, kami memahami kesulitan membangun sesuatu
               yang baru. Itulah sebabnya kami hadir untuk membantu startup
               seperti Anda berkembang lebih cerdas, bukan lebih keras. Baik Anda
@@ -112,8 +112,10 @@ export default function AboutPage() {
           transition={{ duration: 0.8 }}
           className="container mx-auto text-center"
         >
-          <h2 className="text-3xl text-blue-700 font-bold mb-4">Who We Are</h2>
-          <p className="max-w-3xl mx-auto text-gray-400 dark:text-gray-300 text-md mb-10">
+          <h2 className="text-3xl md:text-3xl lg:text-5xl text-blue-700 font-bold mb-4">
+            Who We Are
+          </h2>
+          <p className="max-w-3xl mx-auto text-gray-400 dark:text-gray-300 text-md md:text-xl lg:text-xl mb-10">
             Kami adalah tim multidisiplin yang terdiri dari engineer,
             strategist, dan problem-solver yang percaya bahwa setiap bisnis
             besar atau kecil layak mendapatkan sistem kerja yang efisien dan

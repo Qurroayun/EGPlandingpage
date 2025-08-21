@@ -8,7 +8,6 @@ import {
   ChevronRight,
   ChevronUp,
   LayoutDashboard,
-  Lock,
   LogOut,
   Moon,
   PencilRuler,
@@ -166,12 +165,12 @@ export default function Sidebar() {
                   label="Profile"
                   small
                 />
-                <SidebarItem
+                {/* <SidebarItem
                   href="/dashboard/security"
                   icon={<Lock className="w-4 h-4" />}
                   label="Security"
                   small
-                />
+                /> */}
               </div>
             )}
           </div>

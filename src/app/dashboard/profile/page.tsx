@@ -81,6 +81,10 @@ export default function UserProfilePage() {
       }
       setSuccessMsg("Password berhasil diperbarui");
       setOpenPasswordDialog(false);
+      // Reset password input
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
     } else {
       const data = await res.json();
       setError(data.error || "Gagal update password");
@@ -90,8 +94,8 @@ export default function UserProfilePage() {
   if (!user) return <div className="p-4">Memuat...</div>;
 
   return (
-    <div className="mx-auto max-w-4xl">
-      <h2 className="text-2xl font-semibold mb-6">Profile Anda</h2>
+    <div className="mx-auto">
+      <h2 className="text-2xl font-semibold mb-6">Profile</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Kiri: Informasi user */}
         <Card className="dark:bg-black">
@@ -110,7 +114,7 @@ export default function UserProfilePage() {
 
         {/* Kanan: Aksi (button ganti nama & password) */}
         <Card className="dark:bg-black">
-          <CardContent className="flex flex-col md:flex-col-2 gap-3 py-6 items-start">
+          <CardContent className="flex flex-col gap-3 py-6 items-start">
             {/* Dialog Ganti Nama */}
             <Dialog open={openNameDialog} onOpenChange={setOpenNameDialog}>
               <DialogTrigger asChild>
@@ -127,7 +131,16 @@ export default function UserProfilePage() {
                     onChange={(e) => setNewName(e.target.value)}
                   />
                 </div>
-                <DialogFooter>
+                <DialogFooter className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setOpenNameDialog(false);
+                      setNewName(user.name); // reset value
+                    }}
+                  >
+                    Batal
+                  </Button>
                   <Button onClick={handleUpdateName}>Simpan</Button>
                 </DialogFooter>
               </DialogContent>
@@ -167,7 +180,18 @@ export default function UserProfilePage() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
-                <DialogFooter>
+                <DialogFooter className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setOpenPasswordDialog(false);
+                      setCurrentPassword("");
+                      setNewPassword("");
+                      setConfirmPassword("");
+                    }}
+                  >
+                    Batal
+                  </Button>
                   <Button onClick={handleChangePassword}>Simpan</Button>
                 </DialogFooter>
               </DialogContent>

@@ -79,7 +79,7 @@ export default function SectionAbout() {
           </div>
 
           {/* Right: Cards 2x2 Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {cards.map((card, index) => (
               <motion.div
                 key={index}
