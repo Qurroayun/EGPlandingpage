@@ -17,10 +17,7 @@ services:
       - db
     env_file:
       - .env
-    volumes:
-      - .:/app
-      - /app/node_modules
-    command: npm run dev
+    command: npm run start
 
 volumes:
   pgdata:
